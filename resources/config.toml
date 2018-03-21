@@ -1,5 +1,17 @@
 title = "Rune-status Discord bot configuration"
 
 [settings]
-    token = "Token goes here"
+    token = "NDI2MTI5NDg2ODkxOTc0Njky.DZRzPQ.KVZYR-2p_x-O9bHk26HRajmSd_U"
     status = "Online"
+
+[osrs]
+    [osrs.game_service]
+        world = 18
+        port = 43594
+        default_rev = 165
+        ping_period_ms = 60000
+
+    [osrs.rss_service]
+        host = "http://services.runescape.com/m=news/latest_news.rss?oldschool=true"
+        channel = "general-chat"
+        ping_period_ms = 60000

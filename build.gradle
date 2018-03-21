@@ -24,6 +24,8 @@ dependencies {
     compile group: 'net.dv8tion', name: 'JDA', version: '3.5.1_351'
     compile group: 'com.moandjiezana.toml', name: 'toml4j', version: '0.7.2'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile 'com.rometools:rome:1.9.0'
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.30"
 }
 
 compileKotlin {
