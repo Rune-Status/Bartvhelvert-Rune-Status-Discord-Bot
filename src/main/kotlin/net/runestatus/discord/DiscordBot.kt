@@ -6,8 +6,8 @@ import net.dv8tion.jda.core.JDABuilder
 import net.dv8tion.jda.core.OnlineStatus
 import net.runestatus.discord.listener.CommandListener
 import com.moandjiezana.toml.Toml
-import net.runestatus.discord.oldschool.rss.NewsFeedServiceOSRS
 import net.runestatus.discord.oldschool.game.GameServiceOSRS
+import net.runestatus.discord.rss.NewsFeedService
 import java.awt.Color
 import java.io.File
 
@@ -25,13 +25,16 @@ object DiscordBot {
     /** The game service which pings the OSRS server*/
     lateinit var gameServiceOSRS: GameServiceOSRS
 
+    lateinit var newsFeedServiceRS3: NewsFeedService
+
     /** The game service which pings the OSRS server*/
-    lateinit var newsFeedServiceOSRS: NewsFeedServiceOSRS
+    lateinit var newsFeedServiceOSRS: NewsFeedService
 
     /** Starts the Discord bot service */
     fun start() {
         startOSRSGameService(configDir)
         startOSRSNewsFeedService(configDir)
+        startsRS3NewsFeedService(configDir)
         startBot(configDir)
     }
 
@@ -57,10 +60,9 @@ object DiscordBot {
         gameServiceOSRS.start(settings.getLong("ping_period_ms"))
     }
 
-    /** Reads an OSRS news feed configuration .toml file and start the news feed service */
-    private fun startOSRSNewsFeedService(path: String) {
+    private fun startsRS3NewsFeedService(path: String) {
         val settings = Toml().read(File(path)).getTable("osrs.rss_service")
-        newsFeedServiceOSRS = NewsFeedServiceOSRS(
+        newsFeedServiceOSRS = NewsFeedService(
             host = settings.getString("host"),
             toChannel = settings.getString("channel"),
             color = Color.green
@@ -68,6 +70,15 @@ object DiscordBot {
         newsFeedServiceOSRS.start(settings.getLong("ping_period_ms"))
     }
 
-
+    /** Reads an OSRS news feed configuration .toml file and start the news feed service */
+    private fun startOSRSNewsFeedService(path: String) {
+        val settings = Toml().read(File(path)).getTable("rs3.rss_service")
+        newsFeedServiceOSRS = NewsFeedService(
+            host = settings.getString("host"),
+            toChannel = settings.getString("channel"),
+            color = Color.green
+        )
+        newsFeedServiceOSRS.start(settings.getLong("ping_period_ms"))
+    }
 }
 

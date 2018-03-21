@@ -1,4 +1,4 @@
-package net.runestatus.discord.oldschool.rss
+package net.runestatus.discord.rss
 
 import com.rometools.rome.io.SyndFeedInput
 import com.rometools.rome.io.XmlReader
@@ -13,12 +13,13 @@ import java.time.ZonedDateTime
 import kotlin.concurrent.fixedRateTimer
 
 /**
- * A [TimedService] which makes request to the OSRS rss feeds and sends the updates in to the discord chat
+ * A [TimedService] which makes request to the rss feeds of runescape and sends the updates in to the discord chat
  * @param host The url that connects to the server
  * @param toChannel The channel in which the news feed messages will be send
  * @param color The color of the embedded message
  */
-class NewsFeedServiceOSRS(val host: String, val toChannel: String, val color: Color) : TimedService {
+class NewsFeedService(val host: String, val toChannel: String, val color: Color) :
+    TimedService {
     /** The currently stored feed */
     private var currentFeed = SyndFeedInput().build(XmlReader(URL(host)))
 
