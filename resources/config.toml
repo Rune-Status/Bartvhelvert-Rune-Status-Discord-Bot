@@ -1,0 +1,5 @@
+title = "Rune-status Discord bot configuration"
+
+[settings]
+    token = "Token goes here"
+    status = "Online"
