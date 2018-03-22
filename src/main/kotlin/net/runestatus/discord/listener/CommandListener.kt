@@ -17,7 +17,7 @@ class CommandListener : ListenerAdapter() {
         when(commands[0]) {
             in REVISIONCHECK -> {
                 DiscordBot.gameServiceOSRS.updateRevision()
-                event.textChannel.sendMessage("The current OSRS revision is ${DiscordBot.gameServiceOSRS.revision}")
+                event.textChannel.sendMessage("The current OSRS revision is ${DiscordBot.gameServiceOSRS.revision}.")
                     .queue()
             }
         }
