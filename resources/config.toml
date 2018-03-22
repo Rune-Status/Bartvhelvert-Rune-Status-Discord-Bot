@@ -18,6 +18,6 @@ title = "Rune-status Discord bot configuration"
 
 [rs3]
     [rs3.rss_service]
-        host = "http://http://services.runescape.com/m=news/latest_news.rss"
+        host = "http://services.runescape.com/m=news/latest_news.rss"
         channel = "general-chat"
         ping_period_ms = 60000
