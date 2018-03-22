@@ -14,10 +14,10 @@ title = "Rune-status Discord bot configuration"
     [osrs.rss_service]
         host = "http://services.runescape.com/m=news/latest_news.rss?oldschool=true"
         channel = "general-chat"
-        ping_period_ms = 60000
+        ping_period_ms = 120000
 
 [rs3]
     [rs3.rss_service]
         host = "http://services.runescape.com/m=news/latest_news.rss"
         channel = "general-chat"
-        ping_period_ms = 60000
+        ping_period_ms = 120000

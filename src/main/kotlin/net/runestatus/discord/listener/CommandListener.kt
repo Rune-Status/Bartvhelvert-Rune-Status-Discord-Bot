@@ -15,16 +15,43 @@ class CommandListener : ListenerAdapter() {
             }
         }
         when(commands[0]) {
-            in REVISIONCHECK -> {
-                DiscordBot.gameServiceOSRS.updateRevision()
-                event.textChannel.sendMessage("The current OSRS revision is ${DiscordBot.gameServiceOSRS.revision}.")
-                    .queue()
+            "osrs" -> {
+                if (commands.size == 1) return
+                when(commands[1]) {
+                    in UPDATE -> {
+                        if(commands.size == 3 && commands[2].matches(Regex("[-+]?\\d*\\.?\\d+"))) {
+                            DiscordBot.newsFeedServiceOSRS.sendUpdateMessageToChat(commands[2].toInt() % 15)
+                        } else if(commands.size == 2) {
+                            DiscordBot.newsFeedServiceOSRS.sendUpdateMessageToChat()
+                        }
+                    }
+                    in REVISIONCHECK -> {
+                        DiscordBot.gameServiceOSRS.updateRevision()
+                        event.textChannel.sendMessage("The current OSRS revision is " +
+                                "${DiscordBot.gameServiceOSRS.revision}.").queue()
+                    }
+                }
+
             }
+            "rs" -> {
+                if (commands.size == 1) return
+                when(commands[1]) {
+                    in UPDATE -> {
+                        if(commands.size == 3 && commands[2].matches(Regex("[-+]?\\d*\\.?\\d+"))) {
+                            DiscordBot.newsFeedServiceRS3.sendUpdateMessageToChat(commands[2].toInt() % 15)
+                        } else if(commands.size == 2) {
+                            DiscordBot.newsFeedServiceRS3.sendUpdateMessageToChat()
+                        }
+                    }
+                }
+            }
+
         }
     }
 
     companion object {
         /** Command aliases for revision the revision check command */
         val REVISIONCHECK = listOf("rev", "revision", "osrsrev", "osrsrevision")
+        val UPDATE = listOf("update")
     }
 }

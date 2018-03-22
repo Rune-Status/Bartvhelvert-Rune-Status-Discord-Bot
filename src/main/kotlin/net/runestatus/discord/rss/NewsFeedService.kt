@@ -51,15 +51,17 @@ class NewsFeedService(val host: String, val toChannel: String, val color: Color)
         }
     }
 
-    /** Sends the last added message of [currentFeed] to [toChannel] as an embedded message */
-    private fun sendUpdateMessageToChat() {
-        val entry = currentFeed.entries[0]
+    /**
+     * Sends the last added message of [currentFeed] to [toChannel] as an embedded message
+     * @param lastNewsFeed How many news feeds since the newest one back in time should be displayed
+     */
+    fun sendUpdateMessageToChat(lastNewsFeed: Int = 0) {
+        val entry = currentFeed.entries[lastNewsFeed]
         val messageBldr = EmbedBuilder()
             .setTitle(entry.title, entry.link)
             .setDescription(entry.description.value)
             .setColor(color)
             .setThumbnail(entry.enclosures[0].url)
-            .setTimestamp(Instant.from(ZonedDateTime.now()))
         val channel = DiscordBot.discordBot.textChannels.find {it.name.contains(toChannel)}
                 ?: DiscordBot.discordBot.textChannels[0]!!
         channel.sendMessage(messageBldr.build()).queue()

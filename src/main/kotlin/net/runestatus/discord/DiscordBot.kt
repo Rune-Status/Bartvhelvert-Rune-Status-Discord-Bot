@@ -61,22 +61,22 @@ object DiscordBot {
     }
 
     private fun startsRS3NewsFeedService(path: String) {
-        val settings = Toml().read(File(path)).getTable("osrs.rss_service")
-        newsFeedServiceOSRS = NewsFeedService(
+        val settings = Toml().read(File(path)).getTable("rs3.rss_service")
+        newsFeedServiceRS3 = NewsFeedService(
             host = settings.getString("host"),
             toChannel = settings.getString("channel"),
-            color = Color.green
+            color = Color.ORANGE
         )
-        newsFeedServiceOSRS.start(settings.getLong("ping_period_ms"))
+        newsFeedServiceRS3.start(settings.getLong("ping_period_ms"))
     }
 
     /** Reads an OSRS news feed configuration .toml file and start the news feed service */
     private fun startOSRSNewsFeedService(path: String) {
-        val settings = Toml().read(File(path)).getTable("rs3.rss_service")
+        val settings = Toml().read(File(path)).getTable("osrs.rss_service")
         newsFeedServiceOSRS = NewsFeedService(
             host = settings.getString("host"),
             toChannel = settings.getString("channel"),
-            color = Color.green
+            color = Color.RED
         )
         newsFeedServiceOSRS.start(settings.getLong("ping_period_ms"))
     }
